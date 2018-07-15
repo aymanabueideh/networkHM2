@@ -66,6 +66,9 @@ public class ClientSide extends JFrame {
 	public static ArrayList<Client_Info> onlineUsers=new ArrayList<Client_Info>();
 	private static JList list;
 	private static JScrollPane scrollPane;
+	private Client_UDP client_udp;
+	private Client_UDP_Server client_udp_server;
+	private JButton btnServ;
 	public JLabel getDisconnect() {
 		return disconnect;
 	}
@@ -150,7 +153,6 @@ public class ClientSide extends JFrame {
 		connect.setBounds(745, 432, 60, 60);
 		contentPane.add(connect);
 		connect.setIcon(new ImageIcon("Images/Connect.png"));
-		receivedMsg.setEditable(false);
 		receivedMsg.setWrapStyleWord(true);
 		receivedMsg.setLineWrap(true);
 		receivedMsg.setFont(new Font("Berlin Sans FB Demi", Font.BOLD, 20));
@@ -172,7 +174,7 @@ public class ClientSide extends JFrame {
 		list.setBackground(new Color(102, 153, 255));
 		scrollPane.setViewportView(list);
 		
-		lblClientIp = new JLabel("Client IP");
+		lblClientIp = new JLabel("My IP");
 		lblClientIp.setBounds(422, 432, 56, 16);
 		contentPane.add(lblClientIp);
 		
@@ -181,7 +183,7 @@ public class ClientSide extends JFrame {
 		textField.setBounds(511, 432, 116, 22);
 		contentPane.add(textField);
 		
-		lblClientPort = new JLabel("Client Port");
+		lblClientPort = new JLabel("My Port");
 		lblClientPort.setBounds(423, 467, 76, 16);
 		contentPane.add(lblClientPort);
 		
@@ -193,11 +195,26 @@ public class ClientSide extends JFrame {
 		JButton btnConnectToServer = new JButton("Connect to Client");
 		btnConnectToServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//TODO adsad
+//				String clientServerPort;
+//				String value=list.getSelectedValue().toString();
+//				clientServerPort= value.substring(value.indexOf("+"));
+				client_udp=new Client_UDP(serverIP.getText().toString(),textField.getText().toString(),textField_1.getText().toString());
+
 			}
 		});
 		btnConnectToServer.setBounds(309, 0, 169, 25);
 		contentPane.add(btnConnectToServer);
+		
+		btnServ = new JButton("serv");
+		btnServ.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				 client_udp_server=new Client_UDP_Server(textField_1.getText().toString());
+				 Thread threadY=new Thread(client_udp_server);
+				 threadY.start();
+			}
+		});
+		btnServ.setBounds(672, 0, 97, 25);
+		contentPane.add(btnServ);
 		
 		
 		send.addMouseListener(new MouseHandler());
@@ -306,24 +323,14 @@ public class ClientSide extends JFrame {
 		return false;
 	}
 	
-	public boolean sendMessage(String Msg) {
-		try {
-			if(clientSocket.isConnected()) {
-			toServer.writeBytes(Msg+'\n');
-			clientMsgs.add(Msg);
-			updateChatUI("Client: "+Msg);
-			sentMsg.setText("");
-			return true;
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return false;
+	public void sendMessage(String Msg) {
+		client_udp.sendMsg(Msg);
+		
 	}
 	
 	public static void updateChatUI(String msg) {
-		receivedMsg.append(msg+"\n");
+		msg=msg.trim();
+		receivedMsg.append(msg.toString()+"\n");
 		
 	}
 
