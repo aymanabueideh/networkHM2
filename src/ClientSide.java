@@ -278,9 +278,18 @@ public class ClientSide extends JFrame {
 		try {
 			clientSocket=new Socket(serverIP,Integer.parseInt(serverPort));
 			toServer=new DataOutputStream(clientSocket.getOutputStream());
+			
+			String name= "user"+(int)(Math.random()*1000);
+			String Ipaddress=textField.getText();
+			String port=textField_1.getText();
+			
+			toServer.writeBytes(name+'\n');
+			toServer.writeBytes(Ipaddress+'\n');
+			toServer.writeBytes(port+'\n');
+			
 			if(clientSocket.isConnected()) {
 			inFromServer= new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); 
-			threadX=new Thread(new ClientListener(inFromServer,onlineUsers));
+			threadX=new Thread(new ClientListener(inFromServer,onlineUsers,name));
 			threadX.start();
 			return true;
 			}
@@ -329,8 +338,10 @@ public class ClientSide extends JFrame {
 
 	public static void updateOnlineUI() {
 		String [] users=new String[onlineUsers.size()];
+		
 		for(int i=0;i<users.length;i++) {
-			users[i]=onlineUsers.get(i).getUserName()+","+onlineUsers.get(i).getPort()+"\n";
+			users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getPort()+" / "+onlineUsers.get(i).getPort()+"\n";
+			
 		}
 		list=new JList(users);
 		scrollPane.setViewportView(list);

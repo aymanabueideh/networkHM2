@@ -33,14 +33,14 @@ public class variables {
 public static  String [] getIPs_ports () {
 		
 		int x = clients.size();
-		
+		//System.out.println("x="+x);
 		  String [] IPs = new String [x];
 		  
 		  
 		  for (int i=0;i<x;i++) {
 			  
 			  client_socket client = clients.get(i);
-			  IPs[i]= client.getName()+" : "+client.getIP()+" / "+client.getPort();
+			  IPs[i]= client.usergetName()+" : "+client.getIP()+" / "+client.getPort();
 		
 		  }
 		  
@@ -74,7 +74,7 @@ public static void sendList() {
 				
 			}
 		}
-		outToClient.close();
+		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

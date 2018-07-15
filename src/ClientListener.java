@@ -12,11 +12,13 @@ public class ClientListener implements Runnable {
 	private int whatToRead=0;
 	private ArrayList<Client_Info> onlineUsers;
 	private Client_Info client_info;
+	String name="";
 	
-	public ClientListener(BufferedReader fromServer,ArrayList<Client_Info> onlineUsers) {
+	public ClientListener(BufferedReader fromServer,ArrayList<Client_Info> onlineUsers,String name) {
 		inFromServer=fromServer;
 		this.onlineUsers=onlineUsers;
 		client_info=new Client_Info();
+		this.name=name;
 	}
 	
 	@Override
@@ -29,25 +31,30 @@ public class ClientListener implements Runnable {
 				switch(whatToRead) {
 				case USERNAME:
 					client_info.setUserName(serverMsg);
+					//System.out.println(serverMsg);
 					break;
 					
 				case CLIENTIP:
 					client_info.setIP(serverMsg);
+					//System.out.println(serverMsg);
 					break;
 					
 				case CLIENTPORT:
 					client_info.setPort(serverMsg);
+					//System.out.println(serverMsg);
 					break;
 					
 					default:
 						
 				}
-				whatToRead=(whatToRead+1)%4;
+				whatToRead=(whatToRead+1)%3;
+				
 				if(whatToRead==0) {
 					onlineUsers.add(client_info);
+					ClientSide.updateOnlineUI();
 				}
 				
-				ClientSide.updateOnlineUI();
+				
 				serverMsg="";
 			}
 			

@@ -39,9 +39,7 @@ public class client_socket extends Thread {
     			  throw new Exception();
     		  }
     		  
-    		   sentence= "\n"+sentence+"  : "+msg+ "\n"; 
-    		   
-    		   
+    		   sentence= "\n"+sentence+"  : "+msg+ "\n";    
     		   serverUI.setText(sentence);
     		   System.out.println(stopConnection);
     		  // System.out.println(sentence);
@@ -51,7 +49,7 @@ public class client_socket extends Thread {
     	   
     	   } catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
+		//	e.printStackTrace();
     	//	   System.out.println(variables.socketArray.size());
     		   variables.socketArray.remove(clientSocket);
     		   variables.clients.remove(this);

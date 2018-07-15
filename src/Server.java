@@ -49,6 +49,7 @@ public class Server extends Thread {
 			 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				
 			 String name = inFromClient.readLine();
+			// System.out.println(name);
 	    	   client.setuserName(name);
 	    	   
 	    	   String IP =inFromClient.readLine();
@@ -57,7 +58,7 @@ public class Server extends Thread {
 	    	   int port = Integer.parseInt(inFromClient.readLine());
 	    	   client.setPort(port);
 	    	   
-	    	   inFromClient.close();
+	    	   //inFromClient.close();
 			 
 			   client.start();
 			 //add to arraylist
@@ -66,6 +67,7 @@ public class Server extends Thread {
 			 
 			 variables.socketArray.add(connectionSocket);
 			 variables.clients.add(client);
+			// System.out.println(variables.clients.size());
 			// System.out.println(variables.socketArray.size() +"\n");
 			 // send list 
 			 serverUI.setList(variables.getIPs_ports());
