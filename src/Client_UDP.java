@@ -15,9 +15,9 @@ public class Client_UDP {
 	DatagramSocket clientSocket; 
 	byte[] sendData;
 	InetAddress IPAddress = null;
-	public Client_UDP(String serverPort,String clientIP,String clientPort) {
+	public Client_UDP(String serverPort,String ServerIP,String clientPort) {
 				
-		  	  this.Port=clientPort;
+		  	  this.Port=serverPort;
 		  	      try {
 					  clientSocket = new DatagramSocket();
 				} catch (SocketException e) {
@@ -27,7 +27,7 @@ public class Client_UDP {
 		  	  
 		  	      try {
 		  	    	  //your IPAddress
-					 IPAddress = InetAddress.getByName(clientIP+"");
+					 IPAddress = InetAddress.getByName(ServerIP+"");
 				} catch (UnknownHostException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -45,7 +45,10 @@ public class Client_UDP {
 			clientSocket.send(sendPacket);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+			
 		} 
+		
 	}
 }

@@ -1,10 +1,13 @@
 import java.io.*; 
 import java.net.*; 
 
-public class Client_UDP_Server {
+public class Client_UDP_Server implements Runnable {
 
+	private byte[] receiveData;
+	private DatagramSocket serverSocket;
+	boolean test=false;
 	public Client_UDP_Server(String clientPort) {
-		DatagramSocket serverSocket = null;
+		
 		try {
 			serverSocket = new DatagramSocket(Integer.parseInt(clientPort));
 		} catch (SocketException e1) {
@@ -12,28 +15,38 @@ public class Client_UDP_Server {
 			e1.printStackTrace();
 		} 
 		  
-	      byte[] receiveData = new byte[1024]; 
+	       
 	  
-	      while(true) 
+
+	 
+      
+	}
+
+	@Override
+	public void run() {
+	      while(!test) 
 	        { 
 	  
-	          DatagramPacket receivePacket = 
+	    	  receiveData = new byte[1024]; 
+			DatagramPacket receivePacket = 
 	             new DatagramPacket(receiveData, receiveData.length); 
+			
 	           try {
 				serverSocket.receive(receivePacket);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-	           String sentence = new String(receivePacket.getData()); 
 	           
+	           String sentence = new String(receivePacket.getData());
+	           if(!sentence.isEmpty() || !sentence.equals(""))
 	           ClientSide.updateChatUI(sentence);
 	           InetAddress IPAddress = receivePacket.getAddress(); 
 	   
 	           int port = receivePacket.getPort(); 
-
+	           sentence="";
+	           
 	  	       } 
-	 
-      
+		
 	}
 }
