@@ -25,39 +25,66 @@ public class ClientListener implements Runnable {
 	public void run() {
 		while (!stopThread) {
 		try {
+			
+			int size =Integer.parseInt(inFromServer.readLine());
+			//System.out.println(size);
+			//onlineUsers=new ArrayList<Client_Info>();
+			for (int i=0;i<(size-1)*3;i++) {
+				//System.out.println(i);
 			serverMsg=inFromServer.readLine();
-			Thread.sleep(100);
-			if(!serverMsg.isEmpty()) {
+			///System.out.println(serverMsg);
+			if(!serverMsg.isEmpty() || !serverMsg.equals("")) {
 				switch(whatToRead) {
 				case USERNAME:
 					client_info.setUserName(serverMsg);
-					//System.out.println(serverMsg);
+					
+					whatToRead++;
 					break;
 					
 				case CLIENTIP:
 					client_info.setIP(serverMsg);
-					//System.out.println(serverMsg);
+					whatToRead++;
 					break;
 					
 				case CLIENTPORT:
 					client_info.setPort(serverMsg);
-					//System.out.println(serverMsg);
+					whatToRead++;
 					break;
 					
 					default:
 						
 				}
-				whatToRead=(whatToRead+1)%3 ;
-				
-				if(whatToRead==0) {
-					onlineUsers.add(client_info);
-					ClientSide.updateOnlineUI();
+				whatToRead=(whatToRead)%3 ;
+				//System.out.println(whatToRead==0);
+				if(whatToRead%3==0) {
+                   // System.out.println("here");
+					//System.out.println(client_info.getUserName()+": "+client_info.getIP()+" / "+client_info.getPort()+"\n");
+					boolean check=true;
+					
+					for (int j=0;j<onlineUsers.size();j++) {
+						if (client_info.getIP().equals(onlineUsers.get(j).getIP())
+							&& client_info.getPort().equals(onlineUsers.get(j).getPort())
+							&&client_info.getUserName().equals(onlineUsers.get(j).getUserName()))
+						{
+							check=false;
+						}
+					}
+					
+					if(check) {
+					
+						onlineUsers.add(client_info);
+					}
+					
+					client_info=new Client_Info();
+					
 				}
 				
 				
 				serverMsg="";
 			}
 			
+		}
+			ClientSide.updateOnlineUI();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			
@@ -67,5 +94,6 @@ public class ClientListener implements Runnable {
 		
 
 	}
+		
 	}
 }
