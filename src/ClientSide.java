@@ -315,7 +315,8 @@ public class ClientSide extends JFrame {
 			if(!clientSocket.isClosed()) {
 			clientSocket.close();
 			ClientListener.stopThread=true;
-			
+			list=new JList();
+			scrollPane.setViewportView(list);
 			return true;
 			}
 		} catch (IOException e) {
