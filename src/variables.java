@@ -51,15 +51,18 @@ public static void sendList() {
 	
 	int size = clients.size();
 	
+	
 	for (int i=0;i<size;i++) {
 	
-		
+		System.out.print(i+"\t");
 		try {
 		
 			Socket tmp=socketArray.get(i);
 			DataOutputStream outToClient;
 			outToClient = new DataOutputStream(tmp.getOutputStream());
 		for (int j=0;j<size;j++) {
+		
+			System.out.println(j+"\t");
 			
 			if (i!=j) {
 				//Socket tmp=socketArray.get(j);
@@ -71,7 +74,7 @@ public static void sendList() {
 					outToClient.writeBytes(person.usergetName()+"\n");
 					outToClient.writeBytes(person.getIP()+"\n");
 					outToClient.writeBytes(person.getPort()+"\n");
-				
+					
 				
 				
 			}

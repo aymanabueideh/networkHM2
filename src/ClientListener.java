@@ -26,28 +26,27 @@ public class ClientListener implements Runnable {
 		while (!stopThread) {
 		try {
 			serverMsg=inFromServer.readLine();
-			Thread.sleep(100);
-			if(!serverMsg.isEmpty()) {
+			if(!serverMsg.isEmpty() || !serverMsg.equals("")) {
 				switch(whatToRead) {
 				case USERNAME:
 					client_info.setUserName(serverMsg);
-					//System.out.println(serverMsg);
+					whatToRead++;
 					break;
 					
 				case CLIENTIP:
 					client_info.setIP(serverMsg);
-					//System.out.println(serverMsg);
+					whatToRead++;
 					break;
 					
 				case CLIENTPORT:
 					client_info.setPort(serverMsg);
-					//System.out.println(serverMsg);
+					whatToRead++;
 					break;
 					
 					default:
 						
 				}
-				whatToRead=(whatToRead+1)%3 ;
+				whatToRead=(whatToRead)%3 ;
 				
 				if(whatToRead==0) {
 					onlineUsers.add(client_info);

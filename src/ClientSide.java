@@ -208,6 +208,7 @@ public class ClientSide extends JFrame {
 		lblWelcomeBackUsername.setText("Welcome Back "+username);
 		contentPane.add(lblWelcomeBackUsername);
 
+
 	}
 	
 	private class MouseHandler implements MouseListener {
@@ -351,10 +352,12 @@ public class ClientSide extends JFrame {
 		String [] users=new String[onlineUsers.size()];
 		
 		for(int i=0;i<users.length;i++) {
-			//users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getIP()+" / "+onlineUsers.get(i).getPort()+"\n";
-			users[i]=onlineUsers.get(i).getUserName();
+			users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getIP()+" / "+onlineUsers.get(i).getPort()+"\n";
+//			users[i]=onlineUsers.get(i).getUserName();
 			
 		}
+		list=new JList();
+		scrollPane.setViewportView(list);
 		list=new JList(users);
 		scrollPane.setViewportView(list);
 	}
