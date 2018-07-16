@@ -3,19 +3,20 @@ import java.net.*;
 
 public class Client_UDP_Server implements Runnable {
 
-	private byte[] receiveData;
+	private byte[] receiveData,receiveName;
 	private DatagramSocket serverSocket;
 	boolean test=false;
-	public Client_UDP_Server(String clientPort) {
+	public Client_UDP_Server(String clientPort,String clientIp) {
 		
 		try {
-			serverSocket = new DatagramSocket(Integer.parseInt(clientPort));
 			
-		} catch (SocketException e1) {
+			InetAddress IPAddress = InetAddress.getByName(clientIp);
+			serverSocket = new DatagramSocket(Integer.parseInt(clientPort),IPAddress);
+			
+		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
-		  
+		}
 	       
 	  
  
@@ -29,16 +30,46 @@ public class Client_UDP_Server implements Runnable {
 	        { 
 	  
 	    	  receiveData = new byte[1024]; 
-			  DatagramPacket receivePacket = 
+				DatagramPacket receivePacket = 
+		             new DatagramPacket(receiveData, receiveData.length); 
+				
+		           try {
+					serverSocket.receive(receivePacket);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+		           
+		           String sentence = new String(receivePacket.getData());
+		           if(!sentence.isEmpty() || !sentence.equals(""))
+		           ClientSide.updateChatUI(sentence);
+		           InetAddress IPAddress = receivePacket.getAddress(); 
+		   
+		           int port = receivePacket.getPort(); 
+		           sentence="";
+	           
+	    	  
+	    	  /*
+	    	  receiveData = new byte[1024]; 
+	    	  receiveName = new byte[1024]; 
+			  
+	    	  DatagramPacket receivePacket = 
 	          new DatagramPacket(receiveData, receiveData.length); 
-			if (receivePacket.equals(null)) {
-				System.out.println("receivePacket is null");
-			}
-			if (serverSocket.equals(null)) {
-				System.out.println("serverSocket i null");
-			}
+			
+	    	          DatagramPacket receivePacketName = 
+	    	          new DatagramPacket(receiveName, receiveName.length); 
+	    			
+			  
 	           try {
-				serverSocket.receive(receivePacket);
+				serverSocket.receive(receivePacketName);
+				 String sentence = new String(receivePacketName.getData());
+				 
+				 serverSocket.receive(receivePacket);
+				  sentence = sentence +" : "+new String(receivePacket.getData());
+		           if(!sentence.isEmpty() || !sentence.equals(""))
+		           ClientSide.updateChatUI(sentence);
+		           sentence="";
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -51,7 +82,7 @@ public class Client_UDP_Server implements Runnable {
 	   
 	           int port = receivePacket.getPort(); 
 	           sentence="";
-	           
+	           */
 	  	       } 
 		
 	}

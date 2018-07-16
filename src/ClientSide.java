@@ -195,11 +195,12 @@ public class ClientSide extends JFrame {
 		JButton btnConnectToServer = new JButton("Connect to Client");
 		btnConnectToServer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				String clientServerPort;
-//				String value=list.getSelectedValue().toString();
-//				clientServerPort= value.substring(value.indexOf("+"));
+			/*
+				String clientServerPort;
+				String value=list.getSelectedValue().toString();
+				clientServerPort= value.substring(value.indexOf("+"));
 				client_udp=new Client_UDP(serverIP.getText().toString(),textField.getText().toString(),textField_1.getText().toString());
-
+*/
 			}
 		});
 		btnConnectToServer.setBounds(309, 0, 169, 25);
@@ -208,9 +209,7 @@ public class ClientSide extends JFrame {
 		btnServ = new JButton("serv");
 		btnServ.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				 client_udp_server=new Client_UDP_Server(textField_1.getText().toString());
-				 Thread threadY=new Thread(client_udp_server);
-				 threadY.start();
+				
 			}
 		});
 		btnServ.setBounds(672, 0, 97, 25);
@@ -240,7 +239,8 @@ public class ClientSide extends JFrame {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(getSend())) {
-				sendMessage(sentMsg.getText());
+				
+            sendMessage(sentMsg.getText());
 				
 			}else if(e.getSource().equals(getConnect())) {
 				if(establishServerConnection(serverIP.getText(),serverPort.getText())) {
@@ -296,18 +296,22 @@ public class ClientSide extends JFrame {
 			clientSocket=new Socket(serverIP,Integer.parseInt(serverPort));
 			toServer=new DataOutputStream(clientSocket.getOutputStream());
 			
-			String name= "user"+(int)(Math.random()*1000);
-			String Ipaddress=textField.getText();
+			 username= "user"+(int)(Math.random()*1000);
+			
+			 String Ipaddress=textField.getText();
 			String port=textField_1.getText();
 			
-			toServer.writeBytes(name+'\n');
+			toServer.writeBytes(username+'\n');
 			toServer.writeBytes(Ipaddress+'\n');
 			toServer.writeBytes(port+'\n');
 			
 			if(clientSocket.isConnected()) {
 			inFromServer= new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); 
-			threadX=new Thread(new ClientListener(inFromServer,onlineUsers,name));
+			threadX=new Thread(new ClientListener(inFromServer,onlineUsers,username));
 			threadX.start();
+			 client_udp_server=new Client_UDP_Server(textField_1.getText().toString(),textField.getText().toString());
+			 Thread threadY=new Thread(client_udp_server);
+			 threadY.start();
 			return true;
 			}
 		} catch (Exception e) {
@@ -333,13 +337,37 @@ public class ClientSide extends JFrame {
 	}
 	
 	public void sendMessage(String Msg) {
-		client_udp.sendMsg(Msg);
+
+		String clientServerPort;
+		String value=list.getSelectedValue().toString();
 		
+		int x=onlineUsers.size();
+		Client_Info toclient=null;
+		
+		for (int i=0;i<x;i++) {
+			
+			if (onlineUsers.get(i).getUserName().equals(value)) {
+				toclient=onlineUsers.get(i);
+			}
+		}
+		
+		System.out.println(toclient.getUserName());
+        System.out.println(toclient.getIP());
+        System.out.println(toclient.getPort());
+        
+		client_udp=new Client_UDP(username,toclient.getIP(),toclient.getPort());
+
+		//client_udp.sendMsg(toclient.getUserName());
+		client_udp.sendMsg(Msg);
+		System.out.println(Msg);
 	}
 	
 	public static void updateChatUI(String msg) {
 		msg=msg.trim();
-		receivedMsg.append(msg.toString()+"\n");
+		StringBuilder str=new StringBuilder();
+		str.append(msg);
+		System.out.println(str.length());
+		receivedMsg.append(str.toString()+"\n");
 		
 	}
 
@@ -347,7 +375,8 @@ public class ClientSide extends JFrame {
 		String [] users=new String[onlineUsers.size()];
 		
 		for(int i=0;i<users.length;i++) {
-			users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getIP()+" / "+onlineUsers.get(i).getPort()+"\n";
+			//users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getIP()+" / "+onlineUsers.get(i).getPort()+"\n";
+			users[i]=onlineUsers.get(i).getUserName();
 			
 		}
 		list=new JList(users);

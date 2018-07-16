@@ -53,22 +53,24 @@ public static void sendList() {
 	
 	for (int i=0;i<size;i++) {
 	
-		Socket tmp=socketArray.get(i);
-		client_socket person=clients.get(i);
-		DataOutputStream outToClient;
-		try {
-			outToClient = new DataOutputStream(tmp.getOutputStream());
 		
+		try {
+		
+			Socket tmp=socketArray.get(i);
+			DataOutputStream outToClient;
+			outToClient = new DataOutputStream(tmp.getOutputStream());
 		for (int j=0;j<size;j++) {
 			
 			if (i!=j) {
+				//Socket tmp=socketArray.get(j);
 				
-				
+				//DataOutputStream outToClient;
+			        client_socket person=clients.get(j);
+			    	//outToClient = new DataOutputStream(tmp.getOutputStream());
+			    	System.out.println(person.usergetName()+"\t"+i+"\t"+j);
 					outToClient.writeBytes(person.usergetName()+"\n");
 					outToClient.writeBytes(person.getIP()+"\n");
 					outToClient.writeBytes(person.getPort()+"\n");
-				
-				
 				
 				
 				
