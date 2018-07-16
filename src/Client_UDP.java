@@ -17,7 +17,7 @@ public class Client_UDP {
 	InetAddress IPAddress = null;
 	public Client_UDP(String serverPort,String ServerIP,String clientPort) {
 				
-		  	  this.Port=serverPort;
+		  	  this.Port=clientPort;
 		  	      try {
 					  clientSocket = new DatagramSocket();
 				} catch (SocketException e) {

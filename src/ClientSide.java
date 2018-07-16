@@ -347,7 +347,7 @@ public class ClientSide extends JFrame {
 		String [] users=new String[onlineUsers.size()];
 		
 		for(int i=0;i<users.length;i++) {
-			users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getPort()+" / "+onlineUsers.get(i).getPort()+"\n";
+			users[i]=onlineUsers.get(i).getUserName()+": "+onlineUsers.get(i).getIP()+" / "+onlineUsers.get(i).getPort()+"\n";
 			
 		}
 		list=new JList(users);

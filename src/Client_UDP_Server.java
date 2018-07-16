@@ -10,6 +10,7 @@ public class Client_UDP_Server implements Runnable {
 		
 		try {
 			serverSocket = new DatagramSocket(Integer.parseInt(clientPort));
+			
 		} catch (SocketException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -28,9 +29,14 @@ public class Client_UDP_Server implements Runnable {
 	        { 
 	  
 	    	  receiveData = new byte[1024]; 
-			DatagramPacket receivePacket = 
-	             new DatagramPacket(receiveData, receiveData.length); 
-			
+			  DatagramPacket receivePacket = 
+	          new DatagramPacket(receiveData, receiveData.length); 
+			if (receivePacket.equals(null)) {
+				System.out.println("receivePacket is null");
+			}
+			if (serverSocket.equals(null)) {
+				System.out.println("serverSocket i null");
+			}
 	           try {
 				serverSocket.receive(receivePacket);
 			} catch (IOException e) {
