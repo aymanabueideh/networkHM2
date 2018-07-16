@@ -67,7 +67,7 @@ public static void sendList() {
 				//DataOutputStream outToClient;
 			        client_socket person=clients.get(j);
 			    	//outToClient = new DataOutputStream(tmp.getOutputStream());
-			    	System.out.println(person.usergetName()+"\t"+i+"\t"+j);
+			    	//System.out.println(person.usergetName()+"\t"+i+"\t"+j);
 					outToClient.writeBytes(person.usergetName()+"\n");
 					outToClient.writeBytes(person.getIP()+"\n");
 					outToClient.writeBytes(person.getPort()+"\n");

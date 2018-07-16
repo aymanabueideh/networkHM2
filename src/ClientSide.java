@@ -223,14 +223,14 @@ public class ClientSide extends JFrame {
 		clientMsgs=new ArrayList<String>();
 		serverMsgs=new ArrayList<String>();
 //		
-//		username=JOptionPane.showInputDialog("Please Enter your Username to Continue ?");
+	username=JOptionPane.showInputDialog("Please Enter your Username to Continue ?");
 //		
-//		
-//		lblWelcomeBackUsername = new JLabel("Welcome Back Username");
-//		lblWelcomeBackUsername.setFont(new Font("Bauhaus 93", Font.PLAIN, 14));
-//		lblWelcomeBackUsername.setBounds(12, 5, 723, 16);
-//		lblWelcomeBackUsername.setText("Welcome Back "+username);
-//		contentPane.add(lblWelcomeBackUsername);
+		
+		lblWelcomeBackUsername = new JLabel("Welcome Back Username");
+		lblWelcomeBackUsername.setFont(new Font("Bauhaus 93", Font.PLAIN, 14));
+		lblWelcomeBackUsername.setBounds(12, 5, 723, 16);
+		lblWelcomeBackUsername.setText("Welcome Back "+username);
+		contentPane.add(lblWelcomeBackUsername);
 
 	}
 	
@@ -296,7 +296,7 @@ public class ClientSide extends JFrame {
 			clientSocket=new Socket(serverIP,Integer.parseInt(serverPort));
 			toServer=new DataOutputStream(clientSocket.getOutputStream());
 			
-			 username= "user"+(int)(Math.random()*1000);
+		
 			
 			 String Ipaddress=textField.getText();
 			String port=textField_1.getText();
@@ -359,14 +359,14 @@ public class ClientSide extends JFrame {
 
 		//client_udp.sendMsg(toclient.getUserName());
 		client_udp.sendMsg(Msg);
-		System.out.println(Msg);
+		//System.out.println(Msg);
 	}
 	
 	public static void updateChatUI(String msg) {
 		msg=msg.trim();
 		StringBuilder str=new StringBuilder();
 		str.append(msg);
-		System.out.println(str.length());
+		//System.out.println(str.length());
 		receivedMsg.append(str.toString()+"\n");
 		
 	}

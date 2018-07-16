@@ -33,7 +33,7 @@ public class client_socket extends Thread {
 			
     		   BufferedReader inFromClient = new BufferedReader(new InputStreamReader(this.clientSocket.getInputStream()));
 		
-    		   sentence = clientSocket.getLocalAddress().toString();
+    		  // sentence = clientSocket.getLocalAddress().toString();
     		   String msg=inFromClient.readLine();
     		  if(msg.equals(null)||msg.equals("null")) {
     			  throw new Exception();
