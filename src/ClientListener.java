@@ -47,7 +47,7 @@ public class ClientListener implements Runnable {
 					default:
 						
 				}
-				whatToRead=(whatToRead+1)%3;
+				whatToRead=(whatToRead+1)%3 ;
 				
 				if(whatToRead==0) {
 					onlineUsers.add(client_info);

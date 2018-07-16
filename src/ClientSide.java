@@ -183,7 +183,7 @@ public class ClientSide extends JFrame {
 		textField.setBounds(511, 432, 116, 22);
 		contentPane.add(textField);
 		
-		lblClientPort = new JLabel("My Port");
+		lblClientPort = new JLabel("My Port"); 
 		lblClientPort.setBounds(423, 467, 76, 16);
 		contentPane.add(lblClientPort);
 		

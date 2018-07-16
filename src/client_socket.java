@@ -49,7 +49,7 @@ public class client_socket extends Thread {
     	   
     	   } catch (Exception e) {
 			// TODO Auto-generated catch block
-		//	e.printStackTrace();
+		// 	e.printStackTrace();
     	//	   System.out.println(variables.socketArray.size());
     		   variables.socketArray.remove(clientSocket);
     		   variables.clients.remove(this);

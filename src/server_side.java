@@ -89,7 +89,7 @@ public class server_side extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				// intiate server 
-				
+				 
 				int port = Integer.parseInt(textField.getText());
 				String IP = textField_1.getText();
 				

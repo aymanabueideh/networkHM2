@@ -18,7 +18,7 @@ public class Client_UDP {
 	public Client_UDP(String serverPort,String ServerIP,String clientPort) {
 				
 		  	  this.Port=clientPort;
-		  	      try {
+		  	      try { 
 					  clientSocket = new DatagramSocket();
 				} catch (SocketException e) {
 					// TODO Auto-generated catch block

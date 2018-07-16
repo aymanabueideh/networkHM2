@@ -49,7 +49,7 @@ public class Server extends Thread {
 			 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				
 			 String name = inFromClient.readLine();
-			// System.out.println(name);
+			//  System.out.println(name);
 	    	   client.setuserName(name);
 	    	   
 	    	   String IP =inFromClient.readLine();
