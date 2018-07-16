@@ -68,7 +68,6 @@ public class ClientSide extends JFrame {
 	private static JScrollPane scrollPane;
 	private Client_UDP client_udp;
 	private Client_UDP_Server client_udp_server;
-	private JButton btnServ;
 	public JLabel getDisconnect() {
 		return disconnect;
 	}
@@ -192,29 +191,6 @@ public class ClientSide extends JFrame {
 		textField_1.setBounds(511, 467, 116, 22);
 		contentPane.add(textField_1);
 		
-		JButton btnConnectToServer = new JButton("Connect to Client");
-		btnConnectToServer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			/*
-				String clientServerPort;
-				String value=list.getSelectedValue().toString();
-				clientServerPort= value.substring(value.indexOf("+"));
-				client_udp=new Client_UDP(serverIP.getText().toString(),textField.getText().toString(),textField_1.getText().toString());
-*/
-			}
-		});
-		btnConnectToServer.setBounds(309, 0, 169, 25);
-		contentPane.add(btnConnectToServer);
-		
-		btnServ = new JButton("serv");
-		btnServ.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
-			}
-		});
-		btnServ.setBounds(672, 0, 97, 25);
-		contentPane.add(btnServ);
-		
 		
 		send.addMouseListener(new MouseHandler());
 		connect.addMouseListener(new MouseHandler());
@@ -222,15 +198,15 @@ public class ClientSide extends JFrame {
 		
 		clientMsgs=new ArrayList<String>();
 		serverMsgs=new ArrayList<String>();
-//		
-//		username=JOptionPane.showInputDialog("Please Enter your Username to Continue ?");
-//		
-//		
-//		lblWelcomeBackUsername = new JLabel("Welcome Back Username");
-//		lblWelcomeBackUsername.setFont(new Font("Bauhaus 93", Font.PLAIN, 14));
-//		lblWelcomeBackUsername.setBounds(12, 5, 723, 16);
-//		lblWelcomeBackUsername.setText("Welcome Back "+username);
-//		contentPane.add(lblWelcomeBackUsername);
+		
+		username=JOptionPane.showInputDialog("Please Enter your Username to Continue ?");
+		
+		
+		lblWelcomeBackUsername = new JLabel("Welcome Back Username");
+		lblWelcomeBackUsername.setFont(new Font("Bauhaus 93", Font.PLAIN, 14));
+		lblWelcomeBackUsername.setBounds(12, 5, 723, 16);
+		lblWelcomeBackUsername.setText("Welcome Back "+username);
+		contentPane.add(lblWelcomeBackUsername);
 
 	}
 	
@@ -296,7 +272,7 @@ public class ClientSide extends JFrame {
 			clientSocket=new Socket(serverIP,Integer.parseInt(serverPort));
 			toServer=new DataOutputStream(clientSocket.getOutputStream());
 			
-			 username= "user"+(int)(Math.random()*1000);
+			 
 			
 			 String Ipaddress=textField.getText();
 			String port=textField_1.getText();
