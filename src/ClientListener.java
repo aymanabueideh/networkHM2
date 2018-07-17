@@ -27,7 +27,7 @@ public class ClientListener implements Runnable {
 		try {
 			
 			int size =Integer.parseInt(inFromServer.readLine());
-			System.out.println(size);
+			
 			if(size==1) {
 				onlineUsers.clear();
 			}
@@ -91,7 +91,7 @@ public class ClientListener implements Runnable {
 			whatToRead=(whatToRead)%3 ;
 			//System.out.println(whatToRead==0);
 			if(whatToRead%3==0) {
-				System.out.println("Receiveng data");
+				
                // System.out.println("here");
 				//System.out.println(client_info.getUserName()+": "+client_info.getIP()+" / "+client_info.getPort()+"\n");
 				boolean check=true;
