@@ -48,7 +48,7 @@ public class Server extends Thread {
 			 client_socket client=new client_socket(connectionSocket , serverUI);
 			 BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 				
-			 String name = inFromClient.readLine();
+			   String name = inFromClient.readLine();
 			//  System.out.println(name);
 	    	   client.setuserName(name);
 	    	   

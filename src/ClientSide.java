@@ -228,9 +228,9 @@ public class ClientSide extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			if(e.getSource().equals(getSend())) {
 				
-				String toclientname=list.getSelectedValue().toString();
+			String toclientname=list.getSelectedValue().toString();
 				
-            sendMessage(toclientname+" : "+sentMsg.getText());
+            sendMessage(toclientname,sentMsg.getText());
 				
 			}else if(e.getSource().equals(getConnect())) {
 				if(establishServerConnection(serverIP.getText(),serverPort.getText())) {
@@ -326,13 +326,11 @@ public class ClientSide extends JFrame {
 		return false;
 	}
 	
-	public void sendMessage(String Msg) {
+	public void sendMessage(String clientto,String Msg) {
 
 		String clientServerPort;
-		String mineMsg="me : "+Msg; 
-		this.updateChatUI(mineMsg);
 		String value=list.getSelectedValue().toString();
-		
+		this.updateChatUI("me : "+Msg);
 		int x=onlineUsers.size();
 		Client_Info toclient=null;
 		
@@ -350,7 +348,7 @@ public class ClientSide extends JFrame {
 		client_udp=new Client_UDP(username,toclient.getIP(),toclient.getPort());
 
 		//client_udp.sendMsg(toclient.getUserName());
-		client_udp.sendMsg(Msg);
+		client_udp.sendMsg(clientto+" : "+Msg);
 		//System.out.println(Msg);
 	}
 	
